@@ -7,19 +7,20 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-func TestEmployeeCorrect(t *testing.T) {
+func TestNameIsblank(t *testing.T) {
 	g := NewGomegaWithT(t)
 
-	t.Run("check input correct", func(t *testing.T) {
+	t.Run("check Name cannot blank", func(t *testing.T) {
 
 		emp := Employee{
-			Name:       "Aon",
+			Name:       "",
 			Email:      "Aon12@mail.com",
 			EmployeeID: "J12345678",
 		}
 		ok, err := govalidator.ValidateStruct(emp)
-		g.Expect(ok).To(BeTrue())
-		g.Expect(err).To(BeNil())
+		g.Expect(ok).ToNot(BeTrue())
+		g.Expect(err).ToNot(BeNil())
+		g.Expect(err.Error()).To(Equal("Name cannot blank"))
 
 	})
 
